@@ -12,9 +12,10 @@ export default function Candidates({ onNavigate }) {
     setLoading(true);
     try {
       const res = await getCandidates(q);
-      setCandidates(res.data.data);
+      setCandidates(Array.isArray(res?.data?.data) ? res.data.data : []);
     } catch (err) {
       console.error(err);
+      setCandidates([]);
     } finally {
       setLoading(false);
     }

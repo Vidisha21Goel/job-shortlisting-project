@@ -36,8 +36,11 @@ export default function Dashboard({ onNavigate }) {
 
   useEffect(() => {
     getCandidates()
-      .then((res) => setCandidates(res.data.data))
-      .catch(console.error)
+      .then((res) => setCandidates(Array.isArray(res?.data?.data) ? res.data.data : []))
+      .catch((err) => {
+        console.error(err);
+        setCandidates([]);
+      })
       .finally(() => setLoading(false));
   }, []);
 

@@ -22,9 +22,10 @@ export default function AIShortlist() {
         preferredSkills,
         minExperience: Number(minExperience) || 0,
       });
-      setResults(res.data.data);
+      setResults(Array.isArray(res?.data?.data) ? res.data.data : []);
     } catch (err) {
       setError(err.response?.data?.message || 'AI matching failed.');
+      setResults([]);
     } finally {
       setLoading(false);
     }
